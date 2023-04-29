@@ -1,5 +1,5 @@
-databasechangelog:
+databaseChangeLog:
   - include:
-    file: /db/changelog/changes/create-exchange-rate-seq.sql
+      file: /db/changelog/changes/create-exchange-rate-seq.sql
   - include:
-    file: /db/changelog/changes/create-exchange-rate.sql
+      file: /db/changelog/changes/create-exchange-rate-table.sql
