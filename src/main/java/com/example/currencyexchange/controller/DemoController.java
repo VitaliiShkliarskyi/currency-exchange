@@ -1,15 +1,13 @@
 package com.example.currencyexchange.controller;
 
+import java.util.List;
 import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
 import com.example.currencyexchange.dto.external.MonobankApiExchangeRateDto;
 import com.example.currencyexchange.dto.external.PrivatApiExchangeRate;
 import com.example.currencyexchange.service.HttpClient;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/demo")
