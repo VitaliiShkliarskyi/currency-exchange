@@ -3,8 +3,6 @@ package com.example.currencyexchange.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,8 +33,7 @@ public class HttpClient {
                 T obj = objectMapper.treeToValue(node, clazz);
                 result.add(obj);
             }
-            return result.subList(0, Math.min(result.size(), 2));
-            //return objectMapper.readValue(entity.getContent(), clazz);
+            return result.subList(0, 2);
         } catch (IOException e) {
             throw new RuntimeException("Can't get info from URL: " + url, e);
         }
