@@ -1,15 +1,17 @@
 package com.example.currencyexchange.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
 import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.repository.ExchangeRateRepository;
-import com.example.currencyexchange.service.mapper.MinfinMapper;
+import com.example.currencyexchange.service.mapper.api.MinfinMapper;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class MinfinServiceImpl implements ProviderService {
+    private static final String PROVIDER_NAME = "Minfin";
+    private static final LocalDate CURRENT_DATE = LocalDate.now();
     private static final String PROVIDER_API = "https://api.minfin.com.ua/mb/";
     private static final String MINFIN_USER_KEY = "7ce543a7cd455b5af6e3c8df2dde86ebe636832a/";
     private final HttpClient httpClient;
@@ -31,6 +33,11 @@ public class MinfinServiceImpl implements ProviderService {
         minfinApiExchangeRateDtoList.stream()
                 .map(minfinMapper::parseApiExchangeDto)
                 .forEach(this::saveUniqueExchangeRate);
+    }
+
+    @Override
+    public List<ExchangeRate> getAll() {
+        return exchangeRateRepository.findAllByProviderAndDate(PROVIDER_NAME, CURRENT_DATE);
     }
 
     private void saveUniqueExchangeRate(ExchangeRate rateToSave) {

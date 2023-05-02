@@ -1,14 +1,17 @@
 package com.example.currencyexchange.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import com.example.currencyexchange.dto.external.MonobankApiExchangeRateDto;
 import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.repository.ExchangeRateRepository;
-import com.example.currencyexchange.service.mapper.MonobankMapper;
+import com.example.currencyexchange.service.mapper.api.MonobankMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MonobankServiceImpl implements ProviderService {
+    private static final String PROVIDER_NAME = "Monobank";
+    private static final LocalDate CURRENT_DATE = LocalDate.now();
     private static final String PROVIDER_API = "https://api.monobank.ua/bank/currency";
     private final HttpClient httpClient;
     private final ExchangeRateRepository exchangeRateRepository;
@@ -29,6 +32,11 @@ public class MonobankServiceImpl implements ProviderService {
         mbApiExchangeRateDtoList.stream()
                 .map(monobankMapper::parseApiExchangeDto)
                 .forEach(this::saveUniqueExchangeRate);
+    }
+
+    @Override
+    public List<ExchangeRate> getAll() {
+        return exchangeRateRepository.findAllByProviderAndDate(PROVIDER_NAME, CURRENT_DATE);
     }
 
     private void saveUniqueExchangeRate(ExchangeRate rateToSave) {

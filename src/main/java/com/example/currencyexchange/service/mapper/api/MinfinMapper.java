@@ -1,4 +1,4 @@
-package com.example.currencyexchange.service.mapper;
+package com.example.currencyexchange.service.mapper.api;
 
 import java.time.LocalDate;
 import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
