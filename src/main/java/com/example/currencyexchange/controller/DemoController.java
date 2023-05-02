@@ -1,10 +1,8 @@
 package com.example.currencyexchange.controller;
 
-import java.util.List;
-import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
-import com.example.currencyexchange.dto.external.MonobankApiExchangeRateDto;
-import com.example.currencyexchange.dto.external.PrivatApiExchangeRate;
-import com.example.currencyexchange.service.HttpClient;
+import com.example.currencyexchange.service.MinfinServiceImpl;
+import com.example.currencyexchange.service.MonobankServiceImpl;
+import com.example.currencyexchange.service.PrivatServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,37 +10,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/demo")
 public class DemoController  {
-    private final HttpClient httpClient;
+    private final MonobankServiceImpl monobankService;
+    private final MinfinServiceImpl minfinService;
+    private final PrivatServiceImpl privateService;
 
-    public DemoController(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public DemoController(MonobankServiceImpl monobankService,
+                          MinfinServiceImpl minfinService,
+                          PrivatServiceImpl privateService) {
+        this.monobankService = monobankService;
+        this.minfinService = minfinService;
+        this.privateService = privateService;
     }
 
     @GetMapping("/mono")
     public String runDemoMonobank() {
-        List<MonobankApiExchangeRateDto> monobankApiExchangeRateDtoList =
-                httpClient.get("https://api.monobank.ua/bank/currency",
-                        MonobankApiExchangeRateDto.class);
-        System.out.println(monobankApiExchangeRateDtoList);
+        monobankService.syncExchangeRate();
         return "Monobank done!";
     }
 
     @GetMapping("/minfin")
     public String runDemoMinfin() {
-        List<MinfinApiExchangeRateDto> minfinApiExchangeRateDtoList =
-                httpClient.get("https://api.minfin.com.ua/mb/7ce543a7cd455b5af6e3c8df2dde86ebe636832a/",
-                        MinfinApiExchangeRateDto.class);
-        System.out.println(minfinApiExchangeRateDtoList);
+        minfinService.syncExchangeRate();
         return "Minfin done!";
     }
 
     @GetMapping("/privat")
     public String runDemoPrivat() {
-        List<PrivatApiExchangeRate> privatApiExchangeRateList =
-                httpClient.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5",
-                        PrivatApiExchangeRate.class);
-        System.out.println(privatApiExchangeRateList);
+        privateService.syncExchangeRate();
         return "Privat done!";
     }
-
 }

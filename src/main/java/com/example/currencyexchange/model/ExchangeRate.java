@@ -21,10 +21,10 @@ public class ExchangeRate {
             sequenceName = "exchange_rate_id_seq",
             allocationSize = 1)
     private Long id;
-    private Double saleRate;
-    private Double purchaseRate;
+    private Float saleRate;
+    private Float purchaseRate;
     private LocalDate date;
-    private String bank;
+    private String provider;
     @Enumerated(EnumType.STRING)
     private Currency currency;
 }

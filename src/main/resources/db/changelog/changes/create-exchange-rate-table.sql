@@ -3,10 +3,10 @@
 CREATE TABLE IF NOT EXISTS public.exchange_rate
 (
     id BIGINT NOT NULL,
-    sale_rate DOUBLE PRECISION NOT NULL,
-    purchase_rate DOUBLE PRECISION NOT NULL,
+    sale_rate FLOAT(6) NOT NULL,
+    purchase_rate FLOAT(6) NOT NULL,
     date DATE NOT NULL,
-    bank VARCHAR(255) NOT NULL,
+    provider VARCHAR(255) NOT NULL,
     currency VARCHAR(255) NOT NULL,
     CONSTRAINT currency_exchange_pk PRIMARY KEY (id)
 );

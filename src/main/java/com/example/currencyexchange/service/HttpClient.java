@@ -1,8 +1,9 @@
 package com.example.currencyexchange.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,13 +28,11 @@ public class HttpClient {
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpEntity entity = response.getEntity();
             String json = EntityUtils.toString(entity);
-            List<T> result = new ArrayList<>();
             JsonNode rootNode = objectMapper.readTree(json);
-            for (JsonNode node : rootNode) {
-                T obj = objectMapper.treeToValue(node, clazz);
-                result.add(obj);
-            }
-            return result.subList(0, 2);
+            return StreamSupport.stream(rootNode.spliterator(), false)
+                    .map(node -> objectMapper.convertValue(node, clazz))
+                    .limit(2)
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException("Can't get info from URL: " + url, e);
         }
