@@ -8,6 +8,9 @@ import com.example.currencyexchange.repository.ExchangeRateRepository;
 import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.MinfinMapper;
 import com.example.currencyexchange.service.mapper.api.ProviderMapper;
+import com.example.currencyexchange.util.MinfinUserKey;
+import jakarta.annotation.PostConstruct;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +18,6 @@ public class MinfinServiceImpl implements ProviderService {
     private static final String PROVIDER_NAME = "Minfin";
     private static final LocalDate CURRENT_DATE = LocalDate.now();
     private static final String PROVIDER_API = "https://api.minfin.com.ua/mb/";
-    private static final String MINFIN_USER_KEY = "7ce543a7cd455b5af6e3c8df2dde86ebe636832a/";
     private final HttpClient httpClient;
     private final ExchangeRateRepository exchangeRateRepository;
     private final ProviderMapper<MinfinApiExchangeRateDto> minfinMapper;
@@ -28,10 +30,13 @@ public class MinfinServiceImpl implements ProviderService {
         this.minfinMapper = minfinMapper;
     }
 
+    @PostConstruct
+    @Scheduled(cron = "0 30 9 * * *", zone = "GMT+3")
     @Override
     public void syncExchangeRate() {
         List<MinfinApiExchangeRateDto> minfinApiExchangeRateDtoList =
-                httpClient.get(PROVIDER_API + MINFIN_USER_KEY, MinfinApiExchangeRateDto.class);
+                httpClient.get(PROVIDER_API + MinfinUserKey.USER_KEY,
+                        MinfinApiExchangeRateDto.class);
         minfinApiExchangeRateDtoList.stream()
                 .map(minfinMapper::parseApiExchangeDto)
                 .forEach(this::saveUniqueExchangeRate);

@@ -8,6 +8,8 @@ import com.example.currencyexchange.repository.ExchangeRateRepository;
 import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.PrivatMapper;
 import com.example.currencyexchange.service.mapper.api.ProviderMapper;
+import jakarta.annotation.PostConstruct;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,6 +29,8 @@ public class PrivatServiceImpl implements ProviderService {
         this.privatMapper = privatMapper;
     }
 
+    @PostConstruct
+    @Scheduled(cron = "0 30 9 * * *", zone = "GMT+3")
     @Override
     public void syncExchangeRate() {
         List<PrivatApiExchangeRateDto> pbApiExchangeRateDtoList =
