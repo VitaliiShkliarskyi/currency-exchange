@@ -1,4 +1,4 @@
-package com.example.currencyexchange.service;
+package com.example.currencyexchange.service.api;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,13 +16,14 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HttpClient {
+public class HttpClientImpl implements HttpClient {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private ObjectMapper objectMapper = new ObjectMapper();
     {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+    @Override
     public <T> List<T> get(String url, Class<T> clazz) {
         HttpGet request = new HttpGet(url);
         try (CloseableHttpResponse response = httpClient.execute(request)) {

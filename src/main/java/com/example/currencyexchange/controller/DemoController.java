@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/demo")
-public class DemoController  {
+public class DemoController {
     private final MonobankServiceImpl monobankService;
     private final MinfinServiceImpl minfinService;
     private final PrivatServiceImpl privateService;

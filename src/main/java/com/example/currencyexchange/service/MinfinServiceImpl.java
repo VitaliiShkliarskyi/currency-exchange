@@ -5,7 +5,9 @@ import java.util.List;
 import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
 import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.repository.ExchangeRateRepository;
+import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.MinfinMapper;
+import com.example.currencyexchange.service.mapper.api.ProviderMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +18,7 @@ public class MinfinServiceImpl implements ProviderService {
     private static final String MINFIN_USER_KEY = "7ce543a7cd455b5af6e3c8df2dde86ebe636832a/";
     private final HttpClient httpClient;
     private final ExchangeRateRepository exchangeRateRepository;
-    private final MinfinMapper minfinMapper;
+    private final ProviderMapper<MinfinApiExchangeRateDto> minfinMapper;
 
     public MinfinServiceImpl(HttpClient httpClient,
                              ExchangeRateRepository exchangeRateRepository,
@@ -38,6 +40,17 @@ public class MinfinServiceImpl implements ProviderService {
     @Override
     public List<ExchangeRate> getAll() {
         return exchangeRateRepository.findAllByProviderAndDate(PROVIDER_NAME, CURRENT_DATE);
+    }
+
+    @Override
+    public List<ExchangeRate> getAllByDate(LocalDate date) {
+        return exchangeRateRepository.findAllByProviderAndDate(PROVIDER_NAME, date);
+    }
+
+    @Override
+    public List<ExchangeRate> getAllByDateBetween(LocalDate dateFrom, LocalDate dateTo) {
+        return exchangeRateRepository
+                .findAllByProviderAndDateBetween(PROVIDER_NAME, dateFrom, dateTo);
     }
 
     private void saveUniqueExchangeRate(ExchangeRate rateToSave) {

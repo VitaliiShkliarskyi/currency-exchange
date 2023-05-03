@@ -7,7 +7,7 @@ import com.example.currencyexchange.model.ExchangeRate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PrivatMapper {
+public class PrivatMapper implements ProviderMapper<PrivatApiExchangeRateDto> {
     private static final String PROVIDER_NAME = "PrivatBank";
 
     public ExchangeRate parseApiExchangeDto(PrivatApiExchangeRateDto dto) {

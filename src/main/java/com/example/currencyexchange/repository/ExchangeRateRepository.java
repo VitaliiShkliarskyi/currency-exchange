@@ -15,13 +15,12 @@ public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long
 
     List<ExchangeRate> findAllByProviderAndDate(String provider, LocalDate date);
 
+    List<ExchangeRate> findAllByProviderAndDateBetween(
+            String provider, LocalDate dateFrom, LocalDate dateTo);
+
     @Query("SELECT AVG(e.saleRate) FROM ExchangeRate e WHERE e.currency = ?1 AND e.date = ?2")
     Float getAverageMarketSaleRate(Currency currency, LocalDate date);
 
     @Query("SELECT AVG(e.purchaseRate) FROM ExchangeRate e WHERE e.currency = ?1 AND e.date = ?2")
     Float getAverageMarketPurchaseRate(Currency currency, LocalDate date);
-
-    List<ExchangeRate> findAllByDate(LocalDate date);
-
-    List<ExchangeRate> findAllByDateBetween(LocalDate dateFrom, LocalDate dateTo);
 }

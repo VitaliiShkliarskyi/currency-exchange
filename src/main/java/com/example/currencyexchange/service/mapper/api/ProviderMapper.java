@@ -1,4 +1,7 @@
 package com.example.currencyexchange.service.mapper.api;
 
-public interface ProviderMapper {
+import com.example.currencyexchange.model.ExchangeRate;
+
+public interface ProviderMapper <T> {
+    ExchangeRate parseApiExchangeDto(T dto);
 }

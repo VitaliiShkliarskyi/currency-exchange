@@ -7,7 +7,7 @@ import com.example.currencyexchange.model.ExchangeRate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MinfinMapper {
+public class MinfinMapper implements ProviderMapper<MinfinApiExchangeRateDto> {
     private static final String PROVIDER_NAME = "Minfin";
 
     public ExchangeRate parseApiExchangeDto(MinfinApiExchangeRateDto dto) {

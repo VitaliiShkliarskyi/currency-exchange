@@ -6,7 +6,7 @@ import com.example.currencyexchange.repository.ExchangeRateRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExchangeRateMapper {
+public class ExchangeRateMapper implements ResponseMapper<ExchangeRate> {
     private final ExchangeRateRepository repository;
 
     public ExchangeRateMapper(ExchangeRateRepository repository) {

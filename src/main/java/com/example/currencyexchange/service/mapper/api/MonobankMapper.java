@@ -7,7 +7,7 @@ import com.example.currencyexchange.model.ExchangeRate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MonobankMapper {
+public class MonobankMapper implements ProviderMapper<MonobankApiExchangeRateDto> {
     private static final String PROVIDER_NAME = "Monobank";
     private static final int USD_ISO_4217 = 840;
     private static final int EUR_ISO_4217 = 978;
