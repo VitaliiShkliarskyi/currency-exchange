@@ -8,6 +8,8 @@ import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.service.ProviderService;
 import com.example.currencyexchange.service.mapper.ExchangeRateMapper;
 import com.example.currencyexchange.service.mapper.ResponseMapper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ public class ExchangeRateController {
      * http://localhost:8080/rates
      */
     @GetMapping
+    @ApiOperation(value = "Get all actual exchange rates for all sources, with average market rates")
     public List<ExchangeRateResponseDto> getAllWithMarketAverageRate() {
         List<ExchangeRate> allRates = new ArrayList<>();
         providerServiceList.forEach(provider -> allRates.addAll(provider.getAll()));
@@ -39,11 +42,15 @@ public class ExchangeRateController {
     }
 
     /**
-     * http://localhost:8080/rates?date=2023-05-03
+     * http://localhost:8080/rates/by-date?value=2023-05-03
      **/
-    @GetMapping(params = {"date"})
+    @GetMapping("/by-date")
+    @ApiOperation(value = "Get all average exchange rates for all sources for for a specific day")
     public List<ExchangeRateResponseDto> getAllByDate(
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @RequestParam("value") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @ApiParam(name = "value",
+                    value = "The date for which to retrieve exchange rates in ISO 8601 format",
+                    example = "2023-05-02")
             LocalDate date) {
         List<ExchangeRate> allRates = new ArrayList<>();
         providerServiceList.forEach(provider ->
@@ -54,13 +61,20 @@ public class ExchangeRateController {
     }
 
     /**
-     * http://localhost:8080/rates?start-date=2023-05-02&end-date=2023-05-03
+     * http://localhost:8080/rates/period?start-date=2023-05-02&end-date=2023-05-03
      **/
-    @GetMapping(params = {"start-date", "end-date"})
+    @GetMapping("/period")
+    @ApiOperation(value = "Get all average exchange rates for all sources for a period")
     public List<ExchangeRateResponseDto> getAllByDateBetween(
             @RequestParam("start-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @ApiParam(name = "start-date",
+                    value = "The start date of the period to retrieve exchange rates in ISO 8601",
+                    example = "2023-11-26")
             LocalDate dateFrom,
-            @RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @RequestParam(name = "end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @ApiParam(name = "end-date",
+                    value = "The end date of the period to retrieve exchange rates in ISO 8601 format",
+                    example = "2023-12-15")
             LocalDate dateTo) {
         List<ExchangeRate> allRates = new ArrayList<>();
         providerServiceList.forEach(provider ->

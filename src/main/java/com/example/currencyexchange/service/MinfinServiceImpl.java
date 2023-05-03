@@ -9,7 +9,7 @@ import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.MinfinMapper;
 import com.example.currencyexchange.service.mapper.api.ProviderMapper;
 import com.example.currencyexchange.util.MinfinUserKey;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class MinfinServiceImpl implements ProviderService {
         this.minfinMapper = minfinMapper;
     }
 
-    @PostConstruct
+    //@PostConstruct
     @Scheduled(cron = "0 30 9 * * *", zone = "GMT+3")
     @Override
     public void syncExchangeRate() {

@@ -8,7 +8,7 @@ import com.example.currencyexchange.repository.ExchangeRateRepository;
 import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.PrivatMapper;
 import com.example.currencyexchange.service.mapper.api.ProviderMapper;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
