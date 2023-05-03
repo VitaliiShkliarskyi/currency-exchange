@@ -1,8 +1,5 @@
 package com.example.currencyexchange.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import com.example.currencyexchange.dto.ExchangeRateResponseDto;
 import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.service.ProviderService;
@@ -10,6 +7,9 @@ import com.example.currencyexchange.service.mapper.ExchangeRateMapper;
 import com.example.currencyexchange.service.mapper.ResponseMapper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,8 @@ public class ExchangeRateController {
      * http://localhost:8080/rates
      */
     @GetMapping
-    @ApiOperation(value = "Get all actual exchange rates for all sources, with average market rates")
+    @ApiOperation(
+            value = "Get all actual exchange rates for all sources, with average market rates")
     public List<ExchangeRateResponseDto> getAllWithMarketAverageRate() {
         List<ExchangeRate> allRates = new ArrayList<>();
         providerServiceList.forEach(provider -> allRates.addAll(provider.getAll()));
@@ -73,7 +74,7 @@ public class ExchangeRateController {
             LocalDate dateFrom,
             @RequestParam(name = "end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             @ApiParam(name = "end-date",
-                    value = "The end date of the period to retrieve exchange rates in ISO 8601 format",
+                    value = "The end date of the period to retrieve exchange rates in ISO 8601",
                     example = "2023-12-15")
             LocalDate dateTo) {
         List<ExchangeRate> allRates = new ArrayList<>();

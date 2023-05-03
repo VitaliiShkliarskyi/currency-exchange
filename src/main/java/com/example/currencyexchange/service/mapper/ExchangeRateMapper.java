@@ -13,7 +13,7 @@ public class ExchangeRateMapper implements ResponseMapper<ExchangeRate> {
         this.repository = repository;
     }
 
-    public ExchangeRateResponseDto toResponseDto (ExchangeRate exchangeRate) {
+    public ExchangeRateResponseDto toResponseDto(ExchangeRate exchangeRate) {
         ExchangeRateResponseDto dto = new ExchangeRateResponseDto();
         dto.setProvider(exchangeRate.getProvider());
         dto.setCurrency(exchangeRate.getCurrency().name());

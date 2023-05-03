@@ -1,8 +1,8 @@
 package com.example.currencyexchange.service;
 
+import com.example.currencyexchange.model.ExchangeRate;
 import java.time.LocalDate;
 import java.util.List;
-import com.example.currencyexchange.model.ExchangeRate;
 
 public interface ProviderService {
     void syncExchangeRate();

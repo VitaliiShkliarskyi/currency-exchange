@@ -1,7 +1,5 @@
 package com.example.currencyexchange.service;
 
-import java.time.LocalDate;
-import java.util.List;
 import com.example.currencyexchange.dto.external.MinfinApiExchangeRateDto;
 import com.example.currencyexchange.model.ExchangeRate;
 import com.example.currencyexchange.repository.ExchangeRateRepository;
@@ -9,7 +7,8 @@ import com.example.currencyexchange.service.api.HttpClient;
 import com.example.currencyexchange.service.mapper.api.MinfinMapper;
 import com.example.currencyexchange.service.mapper.api.ProviderMapper;
 import com.example.currencyexchange.util.MinfinUserKey;
-import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 

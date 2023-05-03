@@ -1,9 +1,9 @@
 package com.example.currencyexchange.service.mapper.api;
 
-import java.time.LocalDate;
 import com.example.currencyexchange.dto.external.MonobankApiExchangeRateDto;
 import com.example.currencyexchange.model.Currency;
 import com.example.currencyexchange.model.ExchangeRate;
+import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +22,7 @@ public class MonobankMapper implements ProviderMapper<MonobankApiExchangeRateDto
         return exchangeRate;
     }
 
-    private String convertIsoToLiteral(int isoValue){
+    private String convertIsoToLiteral(int isoValue) {
         return switch (isoValue) {
             case USD_ISO_4217 -> "USD";
             case EUR_ISO_4217 -> "EUR";
