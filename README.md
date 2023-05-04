@@ -64,7 +64,7 @@ Host: **localhost**; Port: **5433**; User: **postgres**; Password: **1234**; Dat
 1. Fork this repository
 2. Clone the project to your computer
 3. Install [PostgreSQL](https://www.postgresql.org/download/) and configure the database connection.
-4. Add **DB_USERNAME** and **DB_PASSWORD** **application.properties** file
+4. Add **DB_USERNAME** and **DB_PASSWORD** to the **application.properties** file
 5. Execute step 3 from the above instruction.
 6. Run **CurrencyExchangeApplication**
 7. To send a request to the application, use the local port: **http://localhost:8080**
