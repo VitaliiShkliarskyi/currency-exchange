@@ -48,7 +48,7 @@ Project based on Three-Tier architecture:
 **For the first option, perform the following actions:**
 1. Fork this repository
 2. Clone the project to your computer
-3. To obtain a request from the **Minfin**, registration is required in order to receive 10 free requests.
+3. To obtain a request from the [Minfin](https://minfin.com.ua/ua/developers/api/), registration is required in order to receive 10 free requests.
 After receiving the key, copy and paste it into the value of **'minfin.user.key'** in the **application properties**. 
 You can use an existing key, but there are no more than 5 requests left on it.
 4. Install [Docker](https://www.docker.com/products/docker-desktop/)
