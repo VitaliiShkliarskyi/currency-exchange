@@ -1,4 +1,4 @@
-package com.example.currencyexchange.dto;
+package com.example.currencyexchange.dto.response;
 
 import lombok.Data;
 
@@ -8,7 +8,5 @@ public class ExchangeRateResponseDto {
     private String currency;
     private Float saleRate;
     private Float purchaseRate;
-    private Float avgMarketSaleRate;
-    private Float avgMarketPurchaseRate;
     private String date;
 }
